@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>{{ project.name }}</h1>
+        <button class="btn btn-sm btn-dark" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
+
+    <p class="lead">{{ project.description }}</p>
+
+    <h3 class="mt-4">Issues</h3>
+    <ul class="list-group mb-3">
+        {% for issue in issues %}
+        <li class="list-group-item dark-mode-bg">
+            <a href="{% url 'issue_detail' issue.pk %}">{{ issue.title }}</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No issues found.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'create_issue' project.pk %}" class="btn btn-primary">Create New Issue</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        document.querySelectorAll('.list-group-item').forEach(el => el.classList.toggle('dark-mode-bg'));
+    }
+</script>
+{% endblock %}

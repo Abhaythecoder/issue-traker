@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<style>
+    .landing-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 75vh;
+    }
+
+    .welcome-box {
+        background-color: #007b5e;
+        color: #fff;
+        padding: 2rem 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .welcome-box h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .welcome-box p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .welcome-box a.btn {
+        background-color: #014733;
+        color: #fff;
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: background-color 0.2s;
+    }
+
+    .welcome-box a.btn:hover {
+        background-color: #022f23;
+    }
+
+    .dark-mode .welcome-box {
+        background-color: #00614b;
+        color: #e0e0e0;
+    }
+
+    .dark-mode .welcome-box a.btn {
+        background-color: #014733;
+    }
+
+    .dark-mode .welcome-box a.btn:hover {
+        background-color: #022f23;
+    }
+</style>
+
+<div class="landing-container">
+    <div class="welcome-box">
+        <h1>Internal Issue Tracker for Dev Teams</h1>
+        <p>revolutionize fixing issues.</p>
+        <a href="{% url 'project_list' %}" class="btn">View Projects</a>
+    </div>
+</div>
+{% endblock %}

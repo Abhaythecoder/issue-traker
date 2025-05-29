@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}Issue Tracker{% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark-toggle-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #111;
+            color: #fff;
+        }
+
+        .navbar-left a,
+        .navbar-right a {
+            margin-right: 1rem;
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .navbar-left a:hover,
+        .navbar-right a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar-right form {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            padding: 0.4rem;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .search-btn {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid #fff;
+            background: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #dark-mode-toggle {
+            margin-left: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .dark-mode .navbar {
+            background-color: #1c1c1c;
+        }
+
+        .dark-mode .navbar-left a,
+        .dark-mode .navbar-right a {
+            color: #e0e0e0;
+        }
+
+        .dark-mode .search-input {
+            background-color: #2c2c2c;
+            color: #fff;
+            border: 1px solid #444;
+        }
+
+        .dark-mode .search-btn {
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        /* For normal mode */
+        form.bg-light {
+            background-color: #f0f0f0 !important;
+            /* your desired color */
+        }
+
+        /* For dark mode */
+        form.dark-mode-bg {
+            background-color: #007b5e !important;
+            color: #eee;
+        }
+
+        .list-group-item {
+            background-color: #007b5e;
+            color: #eee;
+            border-color: #444;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="{% url 'landing' %}" class="logo">Issue Tracker</a>
+            <a href="{% url 'project_list' %}">Projects</a>
+            <a href="{% url 'create_project' %}">Create Project</a>
+        </div>
+        <div class="navbar-right">
+            <form method="GET" action="{% url 'project_list' %}"
+                style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="text" name="q" placeholder="Search" class="search-input">
+                <button type="submit" class="search-btn">Search</button>
+                <button id="dark-mode-toggle" type="button" class="dark-toggle-btn">🌙</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+
+</html>
